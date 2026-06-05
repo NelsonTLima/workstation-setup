@@ -1,5 +1,24 @@
 # vi: ft=yaml.ansible
 ---
+- name: Check if Homebrew is installed
+  ansible.builtin.stat:
+    path: /opt/homebrew/bin/brew
+  register: homebrew_binary
+
+- name: Install Homebrew
+  ansible.builtin.shell: |
+    NONINTERACTIVE=1 /bin/bash -c \
+    "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  args:
+    creates: /opt/homebrew/bin/brew
+  when:
+    - not homebrew_binary.stat.exists
+
+- name: Refresh shell environment
+  ansible.builtin.command:
+    cmd: /opt/homebrew/bin/brew --version
+  changed_when: false
+
 - name: Install Packages
   become: false
   community.general.homebrew:
