@@ -7,11 +7,13 @@
     update_cache: true
     cache_valid_time: 86400
 
+
 - name: Check Dependencies (Arch)
   when: ansible_facts['os_family'] == 'Archlinux'
-  ansible.builtin.pacman:
+  community.general.pacman:
     name: openssh
     update_cache: true
+
 
 - name: Ensure ~/.ssh directory exists for each user
   become: true
@@ -27,6 +29,7 @@
     owner: "{{ user.name }}"
     group: "{{ user.name }}"
 
+
 - name: Authorize public keys
   loop: "{{ q('subelements', users, 'authorized_keys', {'skip_missing': True}) }}"
   loop_control:
@@ -39,6 +42,7 @@
     user: "{{ user.name }}"
     key: "{{ lookup('file', public_key) }}"
     state: present
+
 
 - name: Copy private keys
   become: true
@@ -57,6 +61,7 @@
     owner: "{{ user.name }}"
     group: "{{ user.name }}"
 
+
 - name: Copy config file
   become: true
   become_user: "{{ user.name }}"
@@ -70,6 +75,7 @@
     mode: "0600"
     owner: "{{ user.name }}"
     group: "{{ user.name }}"
+
 
 - name: Start ssh services (Arch)
   when: ansible_facts['os_family'] == 'Archlinux'

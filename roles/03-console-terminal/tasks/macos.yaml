@@ -7,19 +7,19 @@
   loop_control:
     loop_var: user
   ansible.builtin.copy:
-    src: "{{ role_path }}/files/tmux.conf"
+    src: "{{ playbook_dir }}/dotfiles/shared/tmux.conf"
     dest: "~/.tmux.conf"
     mode: "0664"
 
 - name: Copy zlogin
   ansible.builtin.copy:
-    src: "{{ role_path }}/files/zlogin"
+    src: "{{ playbook_dir }}/dotfiles/shared/zlogin"
     dest: "/etc/zlogin"
     mode: "0664"
 
 - name: Change zprofile
   ansible.builtin.copy:
-    src: "{{ role_path }}/files/macoszprofile"
+    src: "{{ playbook_dir }}/dotfiles/macos/zprofile"
     dest: "/etc/zprofile"
     owner: root
     group: wheel

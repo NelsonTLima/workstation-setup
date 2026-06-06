@@ -14,6 +14,7 @@
       - lua
       - luarocks
       - tree-sitter
+      - tree-sitter-cli
 
 - name: Install NEOVIM
   become: false

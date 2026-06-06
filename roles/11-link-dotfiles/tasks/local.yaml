@@ -1,5 +1,18 @@
 # vi: ft=yaml.ansible
 ---
+- name: Ensure ~/.config directory exists
+  become: true
+  become_user: "{{ user.name }}"
+  ansible.builtin.file:
+    path: "{{ user.home }}/.config"
+    state: directory
+    owner: "{{ user.name }}"
+    mode: "0770"
+  loop: "{{ users }}"
+  loop_control:
+    loop_var: user
+
+
 - name: Remove .config dirs
   become: true
   become_user: "{{ item.0.name }}"
@@ -13,7 +26,7 @@
       - "~/.config/wofi"
       - "~/.config/nvim"
       - "~/.config/ghostty"
-      - "~/Library/Application\ Support/com.mitchellh.ghostty/"
+      - "~/Library/Application\ Support/com.mitchellh.ghostty/config"
   with_nested:
     - "{{ users }}"
     - "{{ directories }}"
@@ -24,7 +37,7 @@
   become_user: "{{ user.name }}"
   when: ansible_facts['os_family'] == 'Archlinux'
   ansible.builtin.file:
-    src: "{{ playbook_dir }}/dotfiles/hypr"
+    src: "{{ playbook_dir }}/dotfiles/linux/hypr"
     dest: "~/.config/hypr"
     state: link
     force: true
@@ -38,7 +51,7 @@
   become_user: "{{ user.name }}"
   when: ansible_facts['os_family'] == 'Archlinux'
   ansible.builtin.file:
-    src: "{{ playbook_dir }}/dotfiles/waybar"
+    src: "{{ playbook_dir }}/dotfiles/linux/waybar"
     dest: "~/.config/waybar"
     state: link
     force: true
@@ -52,7 +65,7 @@
   become_user: "{{ user.name }}"
   when: ansible_facts['os_family'] == 'Archlinux'
   ansible.builtin.file:
-    src: "{{ playbook_dir }}/dotfiles/wofi"
+    src: "{{ playbook_dir }}/dotfiles/linux/wofi"
     dest: "~/.config/wofi"
     state: link
     force: true
@@ -64,7 +77,7 @@
 - name: Create symlink for backgrounds
   when: ansible_facts['os_family'] == 'Archlinux'
   ansible.builtin.file:
-    src: "{{ playbook_dir }}/dotfiles/backgrounds"
+    src: "{{ playbook_dir }}/dotfiles/shared/backgrounds"
     dest: "/usr/share/backgrounds/custom"
     state: link
     force: true
@@ -79,7 +92,7 @@
   become: true
   become_user: "{{ user.name }}"
   ansible.builtin.file:
-    src: "{{ playbook_dir }}/dotfiles/ghostty"
+    src: "{{ playbook_dir }}/dotfiles/shared/ghostty"
     dest: "~/.config/ghostty"
     state: link
     force: true
@@ -96,7 +109,7 @@
   become: true
   become_user: "{{ user.name }}"
   ansible.builtin.file:
-    src: "{{ playbook_dir }}/dotfiles/ghostty"
+    src: "{{ playbook_dir }}/dotfiles/shared/ghostty/config"
     dest: "~/Library/Application Support/com.mitchellh.ghostty/config"
     state: link
     force: true
@@ -109,7 +122,7 @@
   become: true
   become_user: "{{ user.name }}"
   ansible.builtin.file:
-    src: "{{ playbook_dir }}/dotfiles/nvim"
+    src: "{{ playbook_dir }}/dotfiles/shared/nvim"
     dest: "~/.config/nvim"
     state: link
     force: true

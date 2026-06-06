@@ -13,6 +13,7 @@
         cache_valid_time: 86400
       when: ansible_facts['os_family'] == 'Debian'
 
+
     - name: Pacman Dependencies
       community.general.pacman:
         name:
@@ -22,6 +23,7 @@
         update_cache: true
       when: ansible_facts['os_family'] == 'Archlinux'
 
+
     - name: Brew Dependencies
       become: false
       loop_control:
@@ -30,6 +32,7 @@
         name:
           - openssh
       when: ansible_facts['os_family'] == 'Darwin'
+
 
     - name: Setup users
       ansible.builtin.user:

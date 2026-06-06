@@ -25,6 +25,13 @@ vim.keymap.set(
 vim.keymap.set(
   't', '<F3>', [[<C-\><C-n>]], { noremap = true })
 
+vim.keymap.set(
+  'n', '<F4>', ':vert term<CR>', { desc = "Right terminal" })
+vim.keymap.set(
+  'i', '<F4>', '<esc>:vert term<CR>', { desc = "Right terminal" })
+vim.keymap.set(
+  't', '<F4>', [[<C-\><C-n>]], { noremap = true })
+
 -- Avoid displaying numbers in terminal
 vim.api.nvim_create_autocmd("TermOpen", {
   pattern = "*",

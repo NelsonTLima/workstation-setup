@@ -1,10 +1,11 @@
 # vi: ft=yaml.ansible
 ---
 - name: Install nfs-utils (Arch)
-  ansible.builtin.pacman:
+  community.general.pacman:
     name: nfs-utils
     state: present
   when: ansible_facts['os_family'] == 'Archlinux'
+
 
 - name: Server Tasks
   when: nfs_exports is defined
@@ -14,15 +15,18 @@
         database: passwd
         key: nfs-user
 
+
     - name: Get nfs-user UID and GID
       ansible.builtin.set_fact:
         nfs_uid: "{{ getent_passwd['nfs-user'][1] }}"
         nfs_gid: "{{ getent_passwd['nfs-user'][2] }}"
 
+
     - name: Install nfs-kernel-server (Debian)
       ansible.builtin.apt:
         name: nfs-kernel-server
       when: ansible_facts['os_family'] == 'Debian'
+
 
     - name: Make NFS Server Directory
       ansible.builtin.file:
@@ -35,6 +39,7 @@
       loop_control:
         loop_var: export
 
+
     - name: Define ACL to nfs user
       ansible.posix.acl:
         path: "{{ export.from }}"
@@ -43,6 +48,7 @@
       loop: "{{ nfs_exports }}"
       loop_control:
         loop_var: export
+
 
     - name: Define ACL to nfs group
       ansible.posix.acl:
@@ -53,6 +59,7 @@
       loop_control:
         loop_var: export
 
+
     - name: Change /etc/exports
       ansible.builtin.lineinfile:
         path: /etc/exports
@@ -61,15 +68,18 @@
       loop_control:
         loop_var: export
 
+
     - name: Export filesystem
       ansible.builtin.command: exportfs -ra
       changed_when: false
+
 
     - name: Restart NFS service
       ansible.builtin.service:
         name: nfs-kernel-server
         state: restarted
       when: ansible_facts['os_family'] == 'Debian'
+
 
     - name: Restart NFS service
       ansible.builtin.service:
@@ -78,6 +88,7 @@
         state: restarted
       when: ansible_facts['os_family'] == 'Archlinux'
 
+
 - name: Client Tasks
   when: nfs_imports is defined
   block:
@@ -85,6 +96,7 @@
       ansible.builtin.apt:
         name: nfs-common
       when: ansible_facts['os_family'] == 'Debian'
+
 
     - name: Make NFS Client Directories
       ansible.builtin.file:
@@ -95,6 +107,7 @@
       loop: "{{ nfs_imports }}"
       loop_control:
         loop_var: import
+
 
     - name: Mount fstab
       ansible.posix.mount:

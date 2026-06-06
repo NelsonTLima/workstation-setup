@@ -15,6 +15,8 @@
       ansible.builtin.import_tasks: arch.yaml
       when: ansible_facts['os_family'] == 'Archlinux'
 
+    # - name: Ensure ~/.config/nvim exists
+
     # - name: Clone neovim configuration
     #   become: true
     #   become_user: "{{ user.name }}"
@@ -27,14 +29,14 @@
     #     version: main
     #     force: true
 
-    - name: Synchronize nvim dotfiles to remote host
-      become: true
-      become_user: "{{ user.name }}"
-      loop: "{{ users }}"
-      loop_control:
-        loop_var: user
-      ansible.posix.synchronize:
-        src: "{{ playbook_dir }}/dotfiles/nvim"
-        dest: "~/.config/nvim"
-        recursive: true
-        delete: true
+    # - name: Synchronize nvim dotfiles to remote host
+    #   become: true
+    #   become_user: "{{ user.name }}"
+    #   loop: "{{ users }}"
+    #   loop_control:
+    #     loop_var: user
+    #   ansible.posix.synchronize:
+    #     src: "{{ playbook_dir }}/dotfiles/nvim"
+    #     dest: "~/.config/nvim"
+    #     recursive: true
+    #     delete: true

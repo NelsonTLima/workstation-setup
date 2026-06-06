@@ -7,7 +7,7 @@
 
 - name: Copy Terminfo
   ansible.builtin.copy:
-    src: "{{ role_path }}/files/xterm-ghostty.src"
+    src: "{{ playbook_dir }}/dotfiles/shared/xterm-ghostty.src"
     dest: /tmp/xterm-ghostty.src
     mode: "0777"
 

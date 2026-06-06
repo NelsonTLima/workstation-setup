@@ -5,10 +5,11 @@
   block:
     - name: Copy sshd_config
       ansible.builtin.copy:
-        src: "{{ role_path }}/files/sshd_config"
+        src: "{{ playbook_dir }}/dotfiles/shared/sshd_config"
         dest: "/etc/ssh/sshd_config"
         owner: "root"
         mode: "0644"
+
 
     - name: Debian
       ansible.builtin.import_tasks: linux.yaml

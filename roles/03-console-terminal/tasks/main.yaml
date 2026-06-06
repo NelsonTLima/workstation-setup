@@ -56,7 +56,7 @@
       become: true
       become_user: "{{ user.name }}"
       ansible.builtin.copy:
-        src: "{{ playbook_dir }}/dotfiles/zshrc"
+        src: "{{ playbook_dir }}/dotfiles/shared/zshrc"
         dest: "~/.zshrc"
         owner: "{{ user.name }}"
         mode: '0644'

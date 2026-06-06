@@ -53,7 +53,7 @@
 - name: Copy Ghostty Configuration
   become: true
   ansible.builtin.copy:
-    src: "{{ playbook_dir }}/dotfiles/ghostty/config"
+    src: "{{ playbook_dir }}/dotfiles/shared/ghostty/config"
     dest: "~/.config/ghostty/config"
     owner: "{{ user.name }}"
     group: "{{ user.name }}"

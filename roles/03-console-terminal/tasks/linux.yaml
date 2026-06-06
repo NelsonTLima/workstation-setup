@@ -12,7 +12,7 @@
 
 - name: Copy console-setup file
   ansible.builtin.copy:
-    src: "{{ role_path }}/files/console-setup"
+    src: "{{ playbook_dir }}/dotfiles/linux/console-setup"
     dest: /etc/default/console-setup
     owner: root
     group: root
@@ -22,7 +22,7 @@
 
 - name: Copy tmux.conf
   ansible.builtin.copy:
-    src: "{{ playbook_dir }}/dotfiles/tmux.conf"
+    src: "{{ playbook_dir }}/dotfiles/shared/tmux.conf"
     dest: "/etc/tmux.conf"
     owner: root
     group: root
@@ -38,7 +38,7 @@
 
 - name: Copy zlogin to host
   ansible.builtin.copy:
-    src: "{{ role_path }}/files/zlogin"
+    src: "{{ playbook_dir }}/dotfiles/shared/zlogin"
     dest: "/etc/zsh/zlogin"
     owner: root
     group: root

@@ -10,6 +10,7 @@ set relativenumber      " The line numbers are relative
 set signcolumn=yes      " Display sign on the left column
 set updatetime=100      " Sets updatetime to 100
 set clipboard=unnamedplus " Use system clipboard
+set splitright          " splits other windows to the right
 
 " Indentation
 

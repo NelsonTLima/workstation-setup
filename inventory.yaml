@@ -67,32 +67,57 @@ all:
     #   - { from: "192.168.57.2:/srv/nfs", to: "/media/remote-nfs" }
 
   hosts:
-    home-lenovo:
+    macos:
       ansible_connection: local
       ansible_host: "127.0.0.1"
       ansible_user: nelson
 
       chosen_roles:
-        - 01-system-setup
-        - 02-users-groups
-        - 03-console-terminal
-        - 04-terminal-emulator
-        - 05-vim-setup
-        - 06-vim-plugins
-        - 07-neovim-setup
-        - 08-nfs-setup
-        - 09-ssh-authentication
-        - 10-hardening
+        # - 01-system-setup
+        # - 02-users-groups
+        # - 03-console-terminal
+        # - 04-terminal-emulator
+        # - 05-vim-setup
+        # - 06-vim-plugins
+        # - 07-neovim-setup
+        # - 08-nfs-setup
+        # - 09-ssh-authentication
+        # - 10-hardening
         - 11-link-dotfiles
 
       packages: full
 
-      nfs_exports:
-        - { from: "/srv/nfs", to: "192.168.15.0/24" }
-        - { from: "/srv/nfs", to: "127.0.0.1" }
+      users:
+        - name: root
+          home: /var/root
+          generate_ssh_key: false
+
+        - name: nelson
+          home: /Users/nelson
+          generate_ssh_key: false
+
+    linux:
+      ansible_connection: local
+      ansible_host: ""
+      ansible_user: nelson
+
+      chosen_roles:
+        - 01-system-setup
+        # - 02-users-groups
+        # - 03-console-terminal
+        # - 04-terminal-emulator
+        # - 05-vim-setup
+        # - 06-vim-plugins
+        # - 07-neovim-setup
+        # - 08-nfs-setup
+        # - 09-ssh-authentication
+        # - 10-hardening
+        # - 11-link-dotfiles
+
+      packages: full
 
       nfs_imports:
-        - { from: "localhost:/srv/nfs", to: "/media/remote-nfs" }
+        - { from: "truenas.server:/mnt/media", to: "/media/media" }
 
       users:
         - name: root
@@ -102,4 +127,4 @@ all:
         - name: nelson
           home: /home/nelson
           generate_ssh_key: false
-          groups: [ssh-user, nfs-user]
+          groups: [docker, ssh-user, nfs-user]

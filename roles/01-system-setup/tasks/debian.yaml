@@ -11,6 +11,7 @@
       loop:
         - bluez
 
+
     - name: Minimal => install essential CLI and networking tools
       ansible.builtin.apt:
         name: "{{ item }}"
@@ -47,6 +48,7 @@
         - fd-find
         - fzf
 
+
     - name: Full => install proggramming languages
       ansible.builtin.apt:
         name: "{{ item }}"
@@ -63,6 +65,7 @@
         - lua5.4
         - luarocks
 
+
     - name: Download rustup-init script
       when: not lookup('file', ansible_env.HOME + '/.cargo/bin/rustc', errors='ignore')
       ansible.builtin.get_url:
@@ -70,15 +73,18 @@
         dest: /tmp/rustup-init.sh
         mode: '0755'
 
+
     - name: Install Rust (non-interactive)
       ansible.builtin.command:
         cmd: /tmp/rustup-init.sh -y
         creates: "{{ ansible_env.HOME }}/.cargo/bin/rustc"
 
+
     - name: Remove installer after installation
       ansible.builtin.file:
         path: /tmp/rustup-init.sh
         state: absent
+
 
     - name: Full => Set docker repository (ubuntu)
       when: ansible_distribution == "Ubuntu"
@@ -100,6 +106,7 @@
       args:
         executable: /bin/bash
       changed_when: false
+
 
     - name: Full => Set docker repository
       when: ansible_distribution == "Debian"
@@ -128,24 +135,29 @@
         url: https://www.virtualbox.org/download/oracle_vbox_2016.asc
         state: present
 
+
     - name: Add VirtualBox repository
       ansible.builtin.apt_repository:
         repo: "deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian {{ ansible_distribution_release }} contrib"
         state: present
+
 
     - name: Add HashiCorp GPG key
       ansible.builtin.apt_key:
         url: https://apt.releases.hashicorp.com/gpg
         state: present
 
+
     - name: Add HashiCorp official repository
       ansible.builtin.apt_repository:
         repo: "deb [arch=amd64] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main"
         state: present
 
+
     - name: Update APT cache
       ansible.builtin.apt:
         update_cache: true
+
 
     - name: Full => install Docker
       ansible.builtin.apt:
@@ -157,10 +169,12 @@
         - docker-buildx-plugin
         - docker-compose-plugin
 
+
     - name: Install VirtualBox
       ansible.builtin.apt:
         name: virtualbox
         state: present
+
 
     - name: Install Hashicorp vagrant and terraform
       ansible.builtin.apt:
@@ -188,7 +202,7 @@
 
 - name: Copy Terminfo
   ansible.builtin.copy:
-    src: "{{ role_path }}/files/xterm-ghostty.src"
+    src: "{{ playbook_dir }}/dotfiles/shared/xterm-ghostty.src"
     dest: /tmp/xterm-ghostty.src
     mode: "0777"
 

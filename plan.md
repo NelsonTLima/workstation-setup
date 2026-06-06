@@ -9,7 +9,6 @@
 
 ### 2 - users-groups
 
-- [x] Creates default users for nfs and ssh
 - [x] Adds users defined at inventory.yaml file
 
 ### 3 - console-terminal

@@ -8,6 +8,7 @@
         system: true
         name: nfs-user
 
+
     - name: Create nfs user
       ansible.builtin.user:
         system: true
@@ -18,6 +19,7 @@
         name: nfs-user
         group: nfs-user
 
+
     - name: Debian
       ansible.builtin.import_tasks: linux.yaml
       when: >
@@ -25,6 +27,7 @@
         ansible_facts['os_family'] == 'Debian'
         or ansible_facts['os_family'] == 'Archlinux'
         )
+
 
     - name: MacOs
       ansible.builtin.import_tasks: macos.yaml

@@ -4,7 +4,7 @@
   become: true
   block:
     - name: Pacman Install gvim
-      ansible.builtin.pacman:
+      community.general.pacman:
         name: gvim
         state: present
       when: ansible_facts['os_family'] == 'Archlinux'
@@ -24,7 +24,7 @@
       become: true
       become_user: "{{ user.name }}"
       ansible.builtin.copy:
-        src: "{{ playbook_dir }}/dotfiles/vimrc"
+        src: "{{ playbook_dir }}/dotfiles/shared/vimrc"
         dest: "~/.vimrc"
         owner: "{{ user.name }}"
         mode: "0644"

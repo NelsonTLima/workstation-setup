@@ -55,7 +55,7 @@ selection-background = goldenrod
 selection-foreground = black
 
 font-family = Hack Nerd Font
-font-size = 14
+font-size = 20
 
 cursor-color = green
 cursor-style = block

@@ -13,10 +13,12 @@
       changed_when: false
       check_mode: false
 
+
     - name: Define UID and GID variables
       ansible.builtin.set_fact:
         nfs_uid: "{{ nfs_user_ids.stdout.split(':')[0] }}"
         nfs_gid: "{{ nfs_user_ids.stdout.split(':')[1] }}"
+
 
     - name: Make NFS Server Directory
       ansible.builtin.file:
@@ -29,6 +31,7 @@
       loop_control:
         loop_var: export
 
+
     - name: Ensure exports file exits
       ansible.builtin.file:
         path: /etc/exports
@@ -36,6 +39,7 @@
         owner: root
         group: wheel
         mode: "0660"
+
 
     - name: Change /etc/exports
       ansible.builtin.lineinfile:
@@ -45,9 +49,11 @@
       loop_control:
         loop_var: export
 
+
     - name: Export filesystem
       ansible.builtin.command: nfsd restart
       changed_when: false
+
 
 - name: Client Tasks
   when: nfs_imports is defined
@@ -63,6 +69,7 @@
       loop_control:
         loop_var: import
 
+
     - name: Create fstab
       ansible.builtin.file:
         path: "/etc/fstab"
@@ -70,6 +77,7 @@
         owner: root
         group: wheel
         mode: "0700"
+
 
     - name: Add line to fstab
       ansible.builtin.lineinfile:
@@ -79,6 +87,7 @@
       loop: "{{ nfs_imports }}"
       loop_control:
         loop_var: import
+
 
     - name: Mount the File System
       ansible.builtin.command:

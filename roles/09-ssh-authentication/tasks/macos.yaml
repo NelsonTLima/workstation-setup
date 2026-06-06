@@ -13,6 +13,7 @@
     mode: "0700"
     owner: "{{ user.name }}"
 
+
 - name: Authorize public keys
   loop: "{{ q('subelements', users, 'authorized_keys', {'skip_missing': True}) }}"
   loop_control:
@@ -25,6 +26,7 @@
     user: "{{ user.name }}"
     key: "{{ lookup('file', public_key) }}"
     state: present
+
 
 - name: Copy private keys
   become: true
@@ -41,6 +43,7 @@
     dest: "~/.ssh"
     mode: "0600"
     owner: "{{ user.name }}"
+
 
 - name: Copy config file
   become: true
