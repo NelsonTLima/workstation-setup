@@ -112,29 +112,30 @@ all:
           generate_ssh_key: false
 
     linux:
-      ansible_connection: local
-      ansible_host: "127.0.0.1"
+      ansible_connection: ssh
+      ansible_ssh_private_key_file: ~/.ssh/id_vagrant_ed25519
+      ansible_host: "192.168.57.2"
       ansible_user: nelson
 
       chosen_roles:
-        # - 01-system-setup
-        # - 02-users-groups
-        # - 03-console-terminal
-        # - 04-terminal-emulator
-        # - 05-vim-setup
-        # - 06-vim-plugins
-        # - 07-neovim-setup
-        # - 08-nfs-setup
-        # - 09-ssh-authentication
-        # - 10-hardening
-        # - 11-link-dotfiles
+        - 01-system-setup
+        - 02-users-groups
+        - 03-console-terminal
+        - 04-terminal-emulator
+        - 05-vim-setup
+        - 06-vim-plugins
+        - 07-neovim-setup
+        - 08-nfs-setup
+        - 09-ssh-authentication
+        - 10-hardening
+        - 11-link-dotfiles
 
       packages: full
 
-      nfs_imports:
-        - { from: "truenas.server:/mnt/pool-1/media", to: "/media/movies-nfs" }
-        - { from: "truenas.server:/mnt/pool-1/data", to: "/media/shared-nfs" }
-        - { from: "truenas.server:/mnt/pool-1/archive", to: "/media/archive-nfs" }
+      # nfs_imports:
+      #   - { from: "truenas.server:/mnt/pool-1/media", to: "/media/movies-nfs" }
+      #   - { from: "truenas.server:/mnt/pool-1/data", to: "/media/shared-nfs" }
+      #   - { from: "truenas.server:/mnt/pool-1/archive", to: "/media/archive-nfs" }
 
       users:
         - name: root
