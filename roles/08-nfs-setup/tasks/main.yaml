@@ -4,12 +4,14 @@
   become: true
   block:
     - name: Create nfs group
+      when: nfs_exports is defined
       ansible.builtin.group:
         system: true
         name: nfs-user
 
 
     - name: Create nfs user
+      when: nfs_exports is defined
       ansible.builtin.user:
         system: true
         hidden: true

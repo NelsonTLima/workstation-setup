@@ -57,8 +57,18 @@ all:
 
     timezone: "America/Recife" # Sets a timezone to the provided machine
 
-    # NFS imports aren't set by default. The user need to
-    # declare a list of objects containing the filesystems to import and
+    # NFS exports are undefined by default. The user just need to declare
+    # a list of dictionaires called `nfs_exports`. It should have the
+    # filesystems to export and the  network that can access them.
+    #
+    # Example:
+    #
+    # nfs_exports:
+    #   - { from: "/srv/nfs", to: "192.168.57.0/24" }
+
+
+    # NFS imports aren't set by default. Just like the exports, the user need to
+    # declare a list of dictionaires containing the filesystems to import and
     # the mounting points.
     #
     # Example:
