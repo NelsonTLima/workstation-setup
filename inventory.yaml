@@ -14,13 +14,14 @@ all:
       - 02-users-groups
       - 03-console-terminal
       - 04-terminal-emulator
-      - 05-vim-setup
-      - 06-vim-plugins
-      - 07-neovim-setup
-      - 08-nfs-setup
-      - 09-ssh-authentication
-      - 10-hardening
-      - 11-link-dotfiles
+      - 05-dev-tools
+      - 06-vim-setup
+      - 07-vim-plugins
+      - 08-neovim-setup
+      - 09-nfs-setup
+      - 10-ssh-authentication
+      - 11-hardening
+      - 12-link-dotfiles
 
     users:
     # List of users containing variables specific to them.
@@ -52,8 +53,6 @@ all:
     chosen_roles: "{{ ALL_ROLES }}" # All roles will be executed by default.
                                     # Users can configure hosts and groups
                                     # as they please.
-
-    packages: full # you can choose minimal or a full set of packages.
 
     timezone: "America/Recife" # Sets a timezone to the provided machine
 
@@ -87,15 +86,14 @@ all:
         - 02-users-groups
         - 03-console-terminal
         - 04-terminal-emulator
-        - 05-vim-setup
-        - 06-vim-plugins
-        - 07-neovim-setup
-        - 08-nfs-setup
-        - 09-ssh-authentication
-        - 10-hardening
-        - 11-link-dotfiles
-
-      packages: full
+        - 05-dev-tools
+        - 06-vim-setup
+        - 07-vim-plugins
+        - 08-neovim-setup
+        - 09-nfs-setup
+        - 10-ssh-authentication
+        - 11-hardening
+        - 12-link-dotfiles
 
       nfs_imports:
         - { from: "truenas.server:/mnt/pool-1/media", to: "/Users/nelson/movies-nfs" }
@@ -122,15 +120,14 @@ all:
         - 02-users-groups
         - 03-console-terminal
         - 04-terminal-emulator
-        - 05-vim-setup
-        - 06-vim-plugins
-        - 07-neovim-setup
-        - 08-nfs-setup
-        - 09-ssh-authentication
-        - 10-hardening
-        - 11-link-dotfiles
-
-      packages: full
+        - 05-dev-tools
+        - 06-vim-setup
+        - 07-vim-plugins
+        - 08-neovim-setup
+        - 09-nfs-setup
+        - 10-ssh-authentication
+        - 11-hardening
+        - 12-link-dotfiles
 
       # nfs_imports:
       #   - { from: "truenas.server:/mnt/pool-1/media", to: "/media/movies-nfs" }
@@ -145,5 +142,5 @@ all:
         - name: nelson
           home: /home/nelson
           generate_ssh_key: false
-          groups: ["ssh-groups"]
+          groups: ["ssh-user"]
           append: true

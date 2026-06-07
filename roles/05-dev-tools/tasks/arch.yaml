@@ -1,0 +1,10 @@
+# vi: ft=yaml.ansible
+---
+# TODO: Install yay
+- name: Get yay
+  ansible.builtin.debug:
+    msg: "TODO: Get yay"
+
+- name: Install yay
+  ansible.builtin.debug:
+    msg: "Make yay"

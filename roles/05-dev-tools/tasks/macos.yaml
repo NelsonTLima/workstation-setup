@@ -21,42 +21,45 @@
     cmd: /opt/homebrew/bin/brew --version
   changed_when: false
 
-- name: Install Basic Packages
+
+- name: Install Dev Packages
   become: false
   community.general.homebrew:
     name: "{{ item }}"
     update_homebrew: true
     upgrade: true
   loop:
-    - inetutils
-    - tmux
-    - htop
-    - git
-    - eza
-    - wget
+    - jq
+    - tree
+    - ripgrep
+    - fd
+    - fzf
+    - python3
+    - node
+    - go
+    - openjdk
+    - php
+    - lua
+    - luarocks
+    - tree-sitter-cli
+    - rust
+    - docker
+    - docker-compose
+    - docker-buildx
+    - colima
 
 
-- name: Change Timezone
+- name: Start Colima
+  become: false
   ansible.builtin.command:
-    cmd: "systemsetup -settimezone '{{ timezone }}'"
-  register: timezone_register
-  changed_when: false
-  check_mode: false
+    cmd: colima start
+  register: colima_start
+  changed_when: "'already running' not in colima_start.stdout"
 
 
-- name: Copy Terminfo
-  ansible.builtin.copy:
-    src: "{{ playbook_dir }}/dotfiles/shared/xterm-ghostty.src"
-    dest: /tmp/xterm-ghostty.src
-    mode: "0777"
-
-
-- name: Compile Terminfo
-  become: true
-  become_user: "{{ user.name }}"
-  loop: "{{ users }}"
-  loop_control:
-    loop_var: user
-  ansible.builtin.command:
-    cmd: tic -x /tmp/xterm-ghostty.src
-    creates: "~/.terminfo/78/xterm-ghostty"
+- name: Install Extra Packages
+  become: false
+  community.general.homebrew:
+    name: "{{ item }}"
+  loop: "{{ extra_packages }}"
+  when: extra_packages is defined
