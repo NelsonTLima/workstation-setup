@@ -78,29 +78,29 @@ all:
 
   hosts:
     macos:
-      ansible_connection: ""
-      ansible_host: ""
+      ansible_connection: local
+      ansible_host: "127.0.0.1"
       ansible_user: nelson
 
       chosen_roles:
-        # - 01-system-setup
-        # - 02-users-groups
-        # - 03-console-terminal
-        # - 04-terminal-emulator
-        # - 05-vim-setup
-        # - 06-vim-plugins
-        # - 07-neovim-setup
-        # - 08-nfs-setup
-        # - 09-ssh-authentication
-        # - 10-hardening
-        # - 11-link-dotfiles
+        - 01-system-setup
+        - 02-users-groups
+        - 03-console-terminal
+        - 04-terminal-emulator
+        - 05-vim-setup
+        - 06-vim-plugins
+        - 07-neovim-setup
+        - 08-nfs-setup
+        - 09-ssh-authentication
+        - 10-hardening
+        - 11-link-dotfiles
 
       packages: full
 
       nfs_imports:
-        - { from: "truenas.server:/mnt/pool-1/media", to: "/User/nelson/movies-nfs" }
-        - { from: "truenas.server:/mnt/pool-1/data", to: "/User/nelson/shared-nfs" }
-        - { from: "truenas.server:/mnt/pool-1/archive", to: "/User/nelson/archive-nfs" }
+        - { from: "truenas.server:/mnt/pool-1/media", to: "/Users/nelson/movies-nfs" }
+        - { from: "truenas.server:/mnt/pool-1/data", to: "/Users/nelson/shared-nfs" }
+        - { from: "truenas.server:/mnt/pool-1/archive", to: "/Users/nelson/archive-nfs" }
 
       users:
         - name: root
@@ -113,7 +113,7 @@ all:
 
     linux:
       ansible_connection: local
-      ansible_host: ""
+      ansible_host: "127.0.0.1"
       ansible_user: nelson
 
       chosen_roles:
