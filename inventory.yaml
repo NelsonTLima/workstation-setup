@@ -98,9 +98,9 @@ all:
       packages: full
 
       nfs_imports:
-        - { from: "truenas.server:/mnt/media", to: "/User/nelson/movies-nfs" }
-        - { from: "truenas.server:/mnt/data", to: "/User/nelson/shared-nfs" }
-        - { from: "truenas.server:/mnt/archive", to: "/User/nelson/archive-nfs" }
+        - { from: "truenas.server:/mnt/pool-1/media", to: "/User/nelson/movies-nfs" }
+        - { from: "truenas.server:/mnt/pool-1/data", to: "/User/nelson/shared-nfs" }
+        - { from: "truenas.server:/mnt/pool-1archive", to: "/User/nelson/archive-nfs" }
 
       users:
         - name: root
@@ -132,9 +132,9 @@ all:
       packages: full
 
       nfs_imports:
-        - { from: "truenas.server:/mnt/media", to: "/media/movies-nfs" }
-        - { from: "truenas.server:/mnt/data", to: "/media/shared-nfs" }
-        - { from: "truenas.server:/mnt/archive", to: "/media/archive-nfs" }
+        - { from: "truenas.server:/mnt/pool-1/media", to: "/media/movies-nfs" }
+        - { from: "truenas.server:/mnt/pool-1/data", to: "/media/shared-nfs" }
+        - { from: "truenas.server:/mnt/pool-1/archive", to: "/media/archive-nfs" }
 
       users:
         - name: root
