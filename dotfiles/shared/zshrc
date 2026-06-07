@@ -111,8 +111,8 @@ if command -v nvim > /dev/null && [ $TERM != 'linux' ]; then
   alias vi=nvim
 fi
 
-if command -v eza > /dev/null; then
+if command -v exa > /dev/null; then
   alias ls=exa
-elif command -v exa > /dev/null; then
+elif command -v eza > /dev/null; then
   alias ls=eza
 fi
