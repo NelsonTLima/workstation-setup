@@ -17,7 +17,7 @@ all:
       - 05-vim-setup
       - 06-vim-plugins
       - 07-neovim-setup
-      # - 08-nfs-setup
+      - 08-nfs-setup
       - 09-ssh-authentication
       - 10-hardening
       - 11-link-dotfiles
@@ -29,15 +29,25 @@ all:
       - name: root
     # User 1:
       - name: "{{ ansible_user_id }}"
-      # home (string): custom user home path.
-      # generate_ssh_key (bool): Generates a ssh key to the user.
-      # groups (list):  list of groups that the user participates.
-      #                 to permit users to access ssh and nfs you
-      #                 need to put ssh-user and nfs-user in this list.
-      # append (bool): if true append groups without removing other the groups.
-      # copy_keys (list): ssh key paths to copy to user's .ssh directory.
-      # authorized_keys (list): paths to public keys to authorize.
-      # ssh_config (string): path to ssh config file to copy to .ssh dir.
+
+      # List of user attributes:
+
+      # home (string):            custom user home path.
+
+      # generate_ssh_key (bool):  Generates a ssh key to the user.
+
+      # groups (list):            List of groups that the user participates.
+      #                           to permit users to access ssh and nfs you
+      #                           need to put ssh-user and nfs-user in this list.
+
+      # append (bool):            If true append groups without removing other
+      #                           groups.
+
+      # copy_keys (list):         ssh key paths to copy to user's .ssh directory.
+
+      # authorized_keys (list):   paths to public keys to authorize.
+
+      # ssh_config (string):      path to ssh config file to copy to .ssh dir.
 
     chosen_roles: "{{ ALL_ROLES }}" # All roles will be executed by default.
                                     # Users can configure hosts and groups
@@ -47,18 +57,8 @@ all:
 
     timezone: "America/Recife" # Sets a timezone to the provided machine
 
-    # NFS exports are undefined by default. The user just need to declare
-    # a list of dictionaires called `nfs_exports`. It should have the
-    # filesystems to export and the  network that can access them.
-    #
-    # Example:
-    #
-    # nfs_exports:
-    #   - { from: "/srv/nfs", to: "192.168.57.0/24" }
-
-
-    # NFS imports aren't set by default. Just like the exports, the user need to
-    # declare a list of dictionaires containing the filesystems to import and
+    # NFS imports aren't set by default. The user need to
+    # declare a list of objects containing the filesystems to import and
     # the mounting points.
     #
     # Example:
@@ -68,8 +68,8 @@ all:
 
   hosts:
     macos:
-      ansible_connection: local
-      ansible_host: "127.0.0.1"
+      ansible_connection: ""
+      ansible_host: ""
       ansible_user: nelson
 
       chosen_roles:
@@ -86,6 +86,11 @@ all:
         # - 11-link-dotfiles
 
       packages: full
+
+      nfs_imports:
+        - { from: "truenas.server:/mnt/media", to: "/User/nelson/movies-nfs" }
+        - { from: "truenas.server:/mnt/data", to: "/User/nelson/shared-nfs" }
+        - { from: "truenas.server:/mnt/archive", to: "/User/nelson/archive-nfs" }
 
       users:
         - name: root
@@ -117,7 +122,9 @@ all:
       packages: full
 
       nfs_imports:
-        - { from: "truenas.server:/mnt/media", to: "/media/media" }
+        - { from: "truenas.server:/mnt/media", to: "/media/movies-nfs" }
+        - { from: "truenas.server:/mnt/data", to: "/media/shared-nfs" }
+        - { from: "truenas.server:/mnt/archive", to: "/media/archive-nfs" }
 
       users:
         - name: root
@@ -127,4 +134,3 @@ all:
         - name: nelson
           home: /home/nelson
           generate_ssh_key: false
-          groups: [docker, ssh-user, nfs-user]
