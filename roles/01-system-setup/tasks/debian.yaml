@@ -84,12 +84,14 @@
 
 
     - name: Check if Rust is installed
+      become: false
       ansible.builtin.stat:
         path: "{{ ansible_env.HOME }}/.cargo/bin/rustc"
       register: rustc_binary
 
 
     - name: Download rustup-init script
+      become: false
       when: not rustc_binary.stat.exists
       ansible.builtin.get_url:
         url: https://sh.rustup.rs
@@ -97,6 +99,7 @@
         mode: "0755"
 
     - name: Install Rust non-interactively
+      become: false
       when: not rustc_binary.stat.exists
       ansible.builtin.command:
         cmd: /tmp/rustup-init.sh -y

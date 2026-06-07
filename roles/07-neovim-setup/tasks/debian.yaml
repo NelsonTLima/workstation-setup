@@ -4,6 +4,7 @@
   ansible.builtin.apt:
     name:
       - gcc
+      - clang
       - git
       - nodejs
       - npm
@@ -16,10 +17,16 @@
       - lua5.4
       - luarocks
 
-- name: NPM dependencies
-  community.general.npm:
+# - name: NPM dependencies
+#   community.general.npm:
+#     name: tree-sitter-cli
+#     global: true
+
+- name: Cargo dependencies
+  become: false
+  community.general.cargo:
     name: tree-sitter-cli
-    global: true
+    state: present
 
 - name: Install NEOVIM
   community.general.snap:
