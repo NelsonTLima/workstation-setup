@@ -48,6 +48,18 @@
     - luarocks
     - tree-sitter-cli
     - rust
+    - docker
+    - docker-compose
+    - docker-buildx
+    - colima
+
+
+- name: Start Colima
+  become: false
+  ansible.builtin.command:
+    cmd: colima start
+  register: colima_start
+  changed_when: "'already running' not in colima_start.stdout"
 
 
 - name: Install Extra Packages
