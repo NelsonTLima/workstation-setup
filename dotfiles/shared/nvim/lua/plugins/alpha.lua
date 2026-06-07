@@ -17,7 +17,8 @@ return {
       dashboard.button("<space>ff", " find files", ":Telescope find_files<CR>"),
       dashboard.button("<space>fg", "󰱼 live grep", ":Telescope live_grep<CR>"),
       dashboard.button("<space>fh", "󰞋 help tags", ":Telescope help_tags<CR>"),
-      dashboard.button("<F3>", " open terminal", ":below term<CR>"),
+      dashboard.button("<F3>", " open bellow terminal", ":below term<CR>"),
+      dashboard.button("<F4>", " open right terminal", ":vert term<CR>"),
       dashboard.button("q", "󰅚  Quit NVIM", ":qa<CR>"),
     }
     require 'alpha'.setup(dashboard.config)
