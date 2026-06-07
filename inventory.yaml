@@ -17,7 +17,7 @@ all:
       - 05-vim-setup
       - 06-vim-plugins
       - 07-neovim-setup
-      - 08-nfs-setup
+      # - 08-nfs-setup
       - 09-ssh-authentication
       - 10-hardening
       - 11-link-dotfiles
@@ -83,7 +83,7 @@ all:
         # - 08-nfs-setup
         # - 09-ssh-authentication
         # - 10-hardening
-        - 11-link-dotfiles
+        # - 11-link-dotfiles
 
       packages: full
 
@@ -102,7 +102,7 @@ all:
       ansible_user: nelson
 
       chosen_roles:
-        - 01-system-setup
+        # - 01-system-setup
         # - 02-users-groups
         # - 03-console-terminal
         # - 04-terminal-emulator

@@ -70,4 +70,4 @@
 - [x] dotfiles/hypr -> ~/.config/hypr
 - [x] dotfiles/nvim -> ~/.config/nvim
 - [x] dotfiles/waybar -> ~/.config/waybar
-- [x] dotfiles/wofi -> ~/.config/wofi
+- [x] dotfiles/wofi -> ~/.config/wofi`
